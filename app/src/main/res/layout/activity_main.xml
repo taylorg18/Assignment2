@@ -16,9 +16,11 @@
         <ExpandableListView
             android:layout_width="210dp"
             android:layout_height="wrap_content"
-            android:id="@+id/expandableListView"
+            android:id="@+id/displayList"
             android:layout_gravity="right|center_vertical"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:dividerHeight="10dp"
+            android:divider="#ffff0000"/>
 
         <LinearLayout
             android:orientation="vertical"

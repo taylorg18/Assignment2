@@ -23,6 +23,12 @@ public class SoccerDatabase {
         playerDB.put(name, Player);
     }
 
+    public void addTeam(String name, String Local)
+    {
+        team newTeam = new team(name,Local);
+        teamDB.put(name, newTeam);
+    }
+
     /**
      * remove a player
      */
@@ -40,6 +46,11 @@ public class SoccerDatabase {
     public soccerPlayer getPlayer(String name)
     {
         return playerDB.get(name);
+    }
+
+    public team getTeam(String name)
+    {
+        return teamDB.get(name);
     }
 
     /**
