@@ -53,6 +53,11 @@ public class SoccerDatabase {
         return teamDB.get(name);
     }
 
+    public String getTeamName(String name)
+    {
+        return teamDB.get(name).teamName;
+    }
+
     /**
      * increment a player's goals
      * */
