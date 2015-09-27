@@ -44,13 +44,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Foul"
-                    android:id="@+id/addFoul" />
+                    android:id="@+id/addFoul"
+                    android:onClick="addStats"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Save"
-                    android:id="@+id/addSaves" />
+                    android:id="@+id/addSaves"
+                    android:onClick="addStats"/>
             </LinearLayout>
 
             <LinearLayout
@@ -64,13 +66,15 @@
                     android:layout_height="wrap_content"
                     android:text="Add Assist"
                     android:id="@+id/addAssists"
-                    android:singleLine="false" />
+                    android:singleLine="false"
+                    android:onClick="addStats"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Goal"
-                    android:id="@+id/addGoals" />
+                    android:id="@+id/addGoals"
+                    android:onClick="addStats"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -141,7 +145,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Begin Game"
-                android:id="@+id/playGame" />
+                android:id="@+id/playGame"
+                android:onClick="playGame"/>
         </LinearLayout>
 
     </FrameLayout>

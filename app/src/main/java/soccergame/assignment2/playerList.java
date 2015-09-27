@@ -33,6 +33,7 @@ public class playerList extends MainActivity {
     private ArrayList<String> TEAMLIST;
     private int playerNum=-1;
     private soccerPlayer currentPlayer;
+    public team yourTeam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,10 @@ public class playerList extends MainActivity {
         {
             currentPlayer = data.playerNum(0,getSelectedteam());
             playerNum=0;
+            if(currentPlayer == null)
+            {
+                return;
+            }
         }
         displayPlayer(currentPlayer);
     }
@@ -132,6 +137,35 @@ public class playerList extends MainActivity {
 
     }
 
+    public void addStats(View v)
+    {
+       if (v == addGoal)
+       {
+           currentPlayer.setGoals();
+       }
+       else if (v == addSaves)
+        {
+            currentPlayer.setSaves();
+        }
+        else if (v == addAssist)
+        {
+            currentPlayer.setAssists();
+        }
+        else if (v == addFoul)
+        {
+            currentPlayer.setFouls();
+        }
+        displayPlayer(currentPlayer);
+    }
+
+
+    public void playGame(View v)
+    {
+        Intent switchActivity = new Intent(this, soccerField.class);
+        switchActivity.putExtra("yourTeam",getSelectedTeamName());
+        startActivity(switchActivity);
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
