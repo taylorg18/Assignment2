@@ -22,41 +22,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:id="@+id/playerPic"
-                android:layout_weight="0.27" />
+                android:layout_weight="0.27"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="Select A Player"
                 android:id="@+id/playerInfo"
-                android:layout_weight="0.27"
+                android:layout_weight="0.58"
                 android:textColor="#ffffffff"
                 android:textSize="25dp" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Goal"
-                android:id="@+id/addGoals" />
+                android:layout_weight="0.06">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Assist"
-                android:id="@+id/addAssists"
-                android:singleLine="false" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Foul"
+                    android:id="@+id/addFoul" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Save"
-                android:id="@+id/addSaves" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Save"
+                    android:id="@+id/addSaves" />
+            </LinearLayout>
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Foul"
-                android:id="@+id/addFoul" />
+                android:layout_weight="0.06">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Assist"
+                    android:id="@+id/addAssists"
+                    android:singleLine="false" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Goal"
+                    android:id="@+id/addGoals" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -119,7 +134,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next Player"
-                android:id="@+id/nextPlayer" />
+                android:id="@+id/nextPlayer"
+                android:onClick="nextPlayer"/>
 
             <Button
                 android:layout_width="wrap_content"

@@ -1,4 +1,9 @@
 package soccergame.assignment2;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 
@@ -11,11 +16,16 @@ import java.util.Hashtable;
 
 
 
-public class SoccerDatabase {
+public class SoccerDatabase implements Serializable {
+    Hashtable<String, soccerPlayer> playerDB;
+    Hashtable<String, team> teamDB;
 
-    Hashtable<String, soccerPlayer> playerDB = new Hashtable<String,soccerPlayer>();
-    Hashtable<String, team> teamDB = new Hashtable<String, team>();
-
+    public SoccerDatabase() {
+        Hashtable<String, soccerPlayer> playerDB = new Hashtable<String, soccerPlayer>();
+        this.playerDB=playerDB;
+        Hashtable<String, team> teamDB = new Hashtable<String, team>();
+        this.teamDB=teamDB;
+    }
 
     public void addPlayer(String name, int uniformNumber, String teamName, String position)
     {
@@ -110,8 +120,24 @@ public class SoccerDatabase {
      * gives the nth player on a the given team
     */
 
-    public soccerPlayer playerNum(int idx, String teamName) {
-        return null;
+    public soccerPlayer playerNum(int idx, String teamName)
+    {
+        Collection<String> theTeam = Collections.list(playerDB.keys());
+        soccerPlayer[] players = new soccerPlayer[20];
+        int i=0;
+        for( String s : theTeam)
+        {
+            if (playerDB.get(s).getTeam().equalsIgnoreCase(teamName))
+            {
+                players[i] = playerDB.get(s);
+                        i++;
+            }
+
+
+        }
+
+
+        return players[idx];
     }
 
 

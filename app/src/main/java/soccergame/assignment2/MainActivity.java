@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -29,10 +30,11 @@ public class MainActivity extends Activity {
     private Button addTeam;
     private Spinner selectTeam;
     private ArrayAdapter<String> adapter;
-    public ArrayList<String> listOteams;
-    public SoccerDatabase data;
+    public static ArrayList<String> listOteams;
+    public static SoccerDatabase data;
     private TextView teamInfo;
     private ImageView teamPic;
+    public ArrayAdapter<String> spinnerAdapter;
 
 
     @Override
@@ -50,6 +52,7 @@ public class MainActivity extends Activity {
         addPlayer = (Button) findViewById(R.id.addPlayer);
         addTeam = (Button) findViewById(R.id.addTeam);
         teamInfo = (TextView) findViewById(R.id.teamDisplay);
+        teamPic = (ImageView) findViewById(R.id.teamPic);
         data = new SoccerDatabase();
 
         data.addTeam("Gotham Knights", "Gotham");
@@ -58,6 +61,7 @@ public class MainActivity extends Activity {
         data.addPlayer("Dick Grayson", 25, data.getTeamName("Gotham Knights"), "Defender");
         data.addPlayer("Dean Winchester", 1, data.getTeamName("Impalas"), "Forward");
         data.addPlayer("Sam Winchester", 2, data.getTeamName("Impalas"), "Defender");
+        data.addPlayer("Bobby", 3, data.getTeamName("Impalas"), "MidFielder");
 
 
 
@@ -95,13 +99,13 @@ public class MainActivity extends Activity {
         Collections.sort(listOteams);
 
         // create new adapter, add the updated elements and connect to the spinner
-       /* ArrayAdapter<String> spinnerAdapter =
+         spinnerAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                         android.R.id.text1);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectTeam.setAdapter(spinnerAdapter);*/
-        adapter.addAll(listOteams);
-        adapter.notifyDataSetChanged();
+        selectTeam.setAdapter(spinnerAdapter);
+        spinnerAdapter.addAll(listOteams);
+        spinnerAdapter.notifyDataSetChanged();
         update(true);
     }
 
@@ -127,9 +131,12 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void viewPlayers(View v)
-    {
+    public void viewPlayers(View v) {
+        Bundle list = new Bundle();
+        list.putStringArrayList("TEAMS",listOteams);
         Intent switchActivity = new Intent(this, playerList.class);
+        switchActivity.putExtras(list);
+        //switchActivity.putExtra("players", data);
         startActivity(switchActivity);
 
 
@@ -198,6 +205,19 @@ public class MainActivity extends Activity {
             String Location = data.getTeam(teamName).getLocation();
             int wins = data.getTeam(teamName).getWins();
             int loss = data.getTeam(teamName).getLosses();
+            if(teamName.length() < 10) {
+
+                teamPic.setImageResource(R.drawable.upflag);
+            }
+            else if (teamName.length() < 15)
+            {
+
+                teamPic.setImageResource(R.drawable.squad);
+            }
+            else
+            {
+                teamPic.setImageResource(R.drawable.group);
+            }
 
             teamInfo.setText(teamName + "\n" + Location + "\nWins: " + wins + "\nLosses: " + loss);
         }
