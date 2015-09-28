@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
     private Spinner selectTeam;
     private ArrayAdapter<String> adapter;
     public static ArrayList<String> listOteams;
-    public static SoccerDatabase data;
+    public static SoccerDatabase data = new SoccerDatabase();;
     private TextView teamInfo;
     private ImageView teamPic;
     public ArrayAdapter<String> spinnerAdapter;
@@ -53,8 +53,8 @@ public class MainActivity extends Activity {
         addTeam = (Button) findViewById(R.id.addTeam);
         teamInfo = (TextView) findViewById(R.id.teamDisplay);
         teamPic = (ImageView) findViewById(R.id.teamPic);
-        data = new SoccerDatabase();
 
+        //add preset teams
         data.addTeam("Gotham Knights", "Gotham");
         data.addTeam("Impalas", "Kansas");
         data.addPlayer("Bruce Wayne", 60, data.getTeamName("Gotham Knights"), "Forward");
@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
 
 
 
-
+        //set up the spinner
         listOteams = new ArrayList<String>();
         listOteams.add(data.getTeamName("Gotham Knights"));
         listOteams.add(data.getTeamName("Impalas"));
@@ -80,13 +80,13 @@ public class MainActivity extends Activity {
         update(true);
     }
 
-
+    //gets the name of the team selected
     private String getSelectedTeamName() {
         Object obj = selectTeam.getSelectedItem();
         return (String) obj;
     }
 
-
+    //adds a team to the list and database
     public void addTeam(View v) {
 
         String name = teamName.getText().toString();
@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
         update(true);
     }
 
-
+    //sets all fields back to empty
     private void update(boolean reLoad) {
         if (reLoad) {
             playerName.setText("");
@@ -122,7 +122,7 @@ public class MainActivity extends Activity {
 
 
     }
-
+    //gets the number from the edit text
     private int getUniformNumber() {
         try {
             return Integer.parseInt(uniformNumb.getText().toString().trim());
@@ -130,13 +130,12 @@ public class MainActivity extends Activity {
             return -100;
         }
     }
-
+    //changes the activity to playerlist
     public void viewPlayers(View v) {
         Bundle list = new Bundle();
         list.putStringArrayList("TEAMS",listOteams);
         Intent switchActivity = new Intent(this, playerList.class);
         switchActivity.putExtras(list);
-        //switchActivity.putExtra("players", data);
         startActivity(switchActivity);
 
 
@@ -164,7 +163,7 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    //adds players to the given team
     public class addPlayerListener  implements View.OnClickListener {
         /**
          * respond to the press of the "New player" button
@@ -194,17 +193,22 @@ public class MainActivity extends Activity {
 
         }
     }
-
+    //brings up the info for the selected team
     public class teamChange implements AdapterView.OnItemSelectedListener
     {
 
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(data.getTeam(getSelectedTeamName()) == null)
+            {
+                return;
+            }
             String teamName = getSelectedTeamName();
             String Location = data.getTeam(teamName).getLocation();
             int wins = data.getTeam(teamName).getWins();
             int loss = data.getTeam(teamName).getLosses();
+            //picture is based on length of team name
             if(teamName.length() < 10) {
 
                 teamPic.setImageResource(R.drawable.upflag);

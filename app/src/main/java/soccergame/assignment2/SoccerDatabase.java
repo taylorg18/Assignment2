@@ -20,19 +20,20 @@ public class SoccerDatabase implements Serializable {
     Hashtable<String, soccerPlayer> playerDB;
     Hashtable<String, team> teamDB;
 
+    //uses hashtables to store the teams and players
     public SoccerDatabase() {
         Hashtable<String, soccerPlayer> playerDB = new Hashtable<String, soccerPlayer>();
         this.playerDB=playerDB;
         Hashtable<String, team> teamDB = new Hashtable<String, team>();
         this.teamDB=teamDB;
     }
-
+    //adds a player to the given hashtable
     public void addPlayer(String name, int uniformNumber, String teamName, String position)
     {
         soccerPlayer Player = new soccerPlayer(name,teamName, uniformNumber, position);
         playerDB.put(name, Player);
     }
-
+    //adds a team to the hashtable
     public void addTeam(String name, String Local)
     {
         team newTeam = new team(name,Local);
@@ -50,7 +51,7 @@ public class SoccerDatabase implements Serializable {
     }
 
     /**
-     * look up a player
+     * look up a player,team,or team name
      *
      */
     public soccerPlayer getPlayer(String name)
@@ -68,58 +69,8 @@ public class SoccerDatabase implements Serializable {
         return teamDB.get(name).teamName;
     }
 
-    /**
-     * increment a player's goals
-     * */
 
-    public void bumpGoals(String name)
-    {
-        playerDB.get(name).setGoals();
-    }
-
-    /**
-     * increment a player's assists
-     */
-
-    public void bumpAssists(String name)
-    {
-        playerDB.get(name).getAssists();
-    }
-
-
-    /**
-     * increment a player's saves
-     *
-     */
-
-    public void bumpSaves(String name)
-    {
-        playerDB.get(name).getSaves();
-    }
-
-    /**
-     * increment a player's fouls
-     *
-     */
-
-    public void bumpFouls(String name)
-    {
-        playerDB.get(name).getFouls();
-    }
-
-
-    /**
-     * tells the number of players on a given team
-     *
-*/
-    public int numPlayers(String teamName) {
-        return -1;
-    }
-
-    /**
-     * gives the nth player on a the given team
-    */
-
+    //finds the players on the team
     public soccerPlayer playerNum(int idx, String teamName)
     {
         Collection<String> theTeam = Collections.list(playerDB.keys());

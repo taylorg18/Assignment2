@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class soccerField extends MainActivity implements View.OnTouchListener{
 
+    //set up the activity
     private Canvas c;
     fieldSurface field;
     private TextView team1;
@@ -24,6 +25,7 @@ public class soccerField extends MainActivity implements View.OnTouchListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_soccer_field);
+        //find all the views
         field = (fieldSurface) findViewById(R.id.field);
         team1 = (TextView) findViewById(R.id.team1);
         team2 = (TextView) findViewById(R.id.team2);
@@ -31,6 +33,7 @@ public class soccerField extends MainActivity implements View.OnTouchListener{
         Bundle list = this.getIntent().getExtras();
          yourteam = (String) list.get("yourTeam");
         team1.setText(yourteam);
+        //select the opponent randomly
         double selectopp = (Math.random()*2);
         if(selectopp < 1) {
             team2.setText(data.getTeam("Impalas").teamName);
@@ -39,7 +42,7 @@ public class soccerField extends MainActivity implements View.OnTouchListener{
         {
             team2.setText(data.getTeam("Gotham Knights").teamName);
         }
-
+        //allows the user to move the view around after they win
         winDisplay.setOnTouchListener(this);
 
 
@@ -68,6 +71,7 @@ public class soccerField extends MainActivity implements View.OnTouchListener{
         return super.onOptionsItemSelected(item);
     }
 
+    //allows the textview to be dragged around
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         try {
@@ -80,26 +84,35 @@ public class soccerField extends MainActivity implements View.OnTouchListener{
         winDisplay.setY(event.getY());
         return true;
     }
-
+    //returns to previous activity
     public void quitGame(View v)
     {
         finish();
     }
 
+    //plays the game
     public void kickOff(View v)
     {
+        //randomly select winner, displays their name, and increments their stats
         double selectWin = (Math.random()*2);
         if(selectWin < 1) {
             winDisplay.setText("Winner: " + yourteam);
             winDisplay.setVisibility(View.VISIBLE);
-            data.getTeam(yourteam).winner();
+            if(data.getTeam(yourteam) != null) {
+                data.getTeam(yourteam).winner();
+            }
+
             data.getTeam((String) team2.getText()).loser();
-        } else
+
+
+    } else
         {
             winDisplay.setText("Winner: " + team2.getText());
             winDisplay.setVisibility(View.VISIBLE);
             data.getTeam((String) team2.getText()).winner();
-            data.getTeam(yourteam).loser();
+            if(data.getTeam(yourteam) != null) {
+                data.getTeam(yourteam).loser();
+            }
         }
     }
 }

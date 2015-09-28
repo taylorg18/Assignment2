@@ -24,7 +24,7 @@ public class fieldSurface extends SurfaceView{
 
     }
 
-
+    //draws the field and the players
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

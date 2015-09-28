@@ -15,7 +15,7 @@ public class soccerPlayer {
 
 
 
-
+    //constructor for a soccer player
     public  soccerPlayer(String inname, String inteam, int inuniform, String inposition)
    {
        name = inname;
@@ -71,6 +71,7 @@ public class soccerPlayer {
         this.uniform = uniform;
     }
 
+    //these increment the players stats by 1
     public void setGoals() {this.goals++;}
 
     public void setPosition(String position) {

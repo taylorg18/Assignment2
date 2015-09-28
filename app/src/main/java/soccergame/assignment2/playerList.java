@@ -17,30 +17,29 @@ import java.util.ArrayList;
 
 public class playerList extends MainActivity {
 
-
+    //setup the views on the activity
     private Button addGoal;
     private Button addSaves;
     private Button addAssist;
     private Button addFoul;
     private Spinner switchTeam;
-    //private ArrayAdapter<String> adapterTeam;
     private Button nextPlayer;
 
     private TextView playerInfo;
     private ImageView playerPic;
-    private SoccerDatabase newDatabase;
+
     private ArrayAdapter<String> Teamadapter;
     private ArrayList<String> TEAMLIST;
     private int playerNum=-1;
     private soccerPlayer currentPlayer;
-    public team yourTeam;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_list);
 
-
+        //find the views
         switchTeam = (Spinner) findViewById(R.id.teamSelector);
         addGoal = (Button) findViewById(R.id.addGoals);
         addSaves = (Button) findViewById(R.id.addSaves);
@@ -48,12 +47,9 @@ public class playerList extends MainActivity {
         addFoul = (Button) findViewById(R.id.addFoul);
         playerInfo = (TextView) findViewById(R.id.playerInfo);
         playerPic = (ImageView) findViewById(R.id.playerPic);
-
+        //get the team list fromt the last activity
         Bundle list = this.getIntent().getExtras();
         TEAMLIST = list.getStringArrayList("TEAMS");
-
-       // SoccerDatabase database = (SoccerDatabase) this.getIntent().getSerializableExtra("players");
-        //newDatabase = database;
 
         Teamadapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, TEAMLIST.toArray(new String[0]));
@@ -64,13 +60,13 @@ public class playerList extends MainActivity {
         switchTeam.setOnItemSelectedListener(new switchTeam());
 
     }
-
+    //gets the team from the spinner
     private String getSelectedTeamName() {
         Object obj = switchTeam.getSelectedItem();
         return (String) obj;
     }
 
-
+    //returns to the last activity
     public void goBack(View v)
     {
 
@@ -83,6 +79,7 @@ public class playerList extends MainActivity {
         return (String) obj;
     }
 
+    //displays the next player on the team
     public void nextPlayer(View v)
     {
         playerNum++;
@@ -99,6 +96,7 @@ public class playerList extends MainActivity {
         displayPlayer(currentPlayer);
     }
 
+    //displays the players info and selects a picture
     public void displayPlayer(soccerPlayer next)
     {
         String name = next.getName();
@@ -113,6 +111,7 @@ public class playerList extends MainActivity {
         playerInfo.setText(name + "\n" + num + "\n" + team + "\n" + pos + "\n"
                 + "Goals: " + goals + "\nSaves: " + saves
                 + "\nAssists: " + assists + "\nFouls: " + fouls);
+        //player picture is based on name length
         if(name.length() < 10)
         {
             playerPic.setImageResource(R.drawable.drew);
@@ -137,6 +136,7 @@ public class playerList extends MainActivity {
 
     }
 
+    //increments the corresponding stat to the button
     public void addStats(View v)
     {
        if (v == addGoal)
@@ -158,7 +158,7 @@ public class playerList extends MainActivity {
         displayPlayer(currentPlayer);
     }
 
-
+    //takes the user to the soccer field activity
     public void playGame(View v)
     {
         Intent switchActivity = new Intent(this, soccerField.class);
